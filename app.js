@@ -32,18 +32,18 @@ app.use(session({
 //使用passport - 要比router之前
 app.use(passport.initialize())
 app.use(passport.session())
+
 require('./config/passport')(passport)
+
 app.use((req, res, next) => {
   res.locals.user = req.user
   next()
 })
 
 // set router
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
+app.use('/', require('./routes/home'))
 app.use('/users', require('./routes/user'))
+app.use('/todos', require('./routes/todo'))
 
 // port listening
 app.listen(port, () => {
