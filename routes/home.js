@@ -26,4 +26,8 @@ router.get('/', authenticated, (req, res) => {
     .then((todos) => { return res.render('index', { todos: todos }) })
     .catch((error) => { return res.status(422).json(error) })
 })
+
+router.get('/test', (req, res) => {
+  res.render('test')
+})
 module.exports = router
