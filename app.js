@@ -10,14 +10,18 @@ const passport = require('passport')
 // const value
 const app = express()
 const port = 3000
-const db = require('./models')
-const Todo = db.Todo
-const User = db.User
 
 // 判斷開發環境
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
+
+// 載入 Ｍodel
+const db = require('./models')
+const Todo = db.Todo
+const User = db.User
+
+
 
 // set view engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))

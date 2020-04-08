@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs')
 //載入 User model
 const db = require('../models')
 const User = db.User
+
 module.exports = passport => {
   passport.use(
     new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
