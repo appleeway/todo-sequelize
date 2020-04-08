@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const session = require('express-session')
 const passport = require('passport')
+const flash = require('connect-flash')
 
 // const value
 const app = express()
@@ -38,6 +39,7 @@ app.use(session({
   saveUninitialized: 'false'
 }))
 
+
 //使用passport - 要比router之前
 app.use(passport.initialize())
 app.use(passport.session())
@@ -46,6 +48,18 @@ require('./config/passport')(passport)
 
 app.use((req, res, next) => {
   res.locals.user = req.user
+  next()
+})
+
+//使用 connect-flash
+app.use(flash())
+app.use((req, res, next) => {
+  //辨識使用者是否已經登入用的變數
+  res.locals.user = req.user
+  res.locals.isAuthenticated = req.isAuthenticated()
+  //新增兩個flash message變數
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.warning_msg = req.flash('warning_msg')
   next()
 })
 
